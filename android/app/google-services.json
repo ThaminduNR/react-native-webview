@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "299524206897",
+    "project_id": "react-native-pushnotifi",
+    "storage_bucket": "react-native-pushnotifi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299524206897:android:61838f5748a666fdc10010",
+        "android_client_info": {
+          "package_name": "com.firebasetestproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Xmw8fGNsg_RlMEMRWXPwj9BPvElRIpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
