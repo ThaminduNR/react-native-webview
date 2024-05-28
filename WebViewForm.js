@@ -1,13 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {BackHandler, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import WebView from 'react-native-webview';
 import messaging from '@react-native-firebase/messaging';
-// import Snackbar from 'react-native-snackbar';
 
 
 const WebViewForm = () => {
   const webviewRef = useRef(null);
   const [token, setToken] = useState(''); 
+  const [canGoBack, setCanGoBack] = useState(false);
+  const [navState, setNavState] = useState(null);
 
   const getToken = async () => {
     const token = await messaging().getToken();
@@ -17,7 +18,21 @@ const WebViewForm = () => {
 
   useEffect(() => {
     getToken();
-  }, []);
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (navState && navState.canGoBack) {
+        webviewRef.current.goBack();
+        return true; 
+      }
+      return false; 
+    });
+
+    return () => backHandler.remove();
+  }, [navState]);
+
+  const handleNavigationStateChange = (newNavState) => {
+    setNavState(newNavState);
+    setCanGoBack(newNavState.canGoBack);
+  };
 
 
 
@@ -42,6 +57,7 @@ const WebViewForm = () => {
         ref={webviewRef}
         onMessage={handleMessage}
         javaScriptEnabled={true}
+        onNavigationStateChange={handleNavigationStateChange}
       />
     </View>
   );
